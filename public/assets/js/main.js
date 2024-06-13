@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     //TODO poner la URL global
+    const URL_BASE = 'http://localhost:3000';
+    const URL_API = `${URL_BASE}/api/v1`;
+
 
     const formLogin = document.querySelector('#loginForm');
     const formRegister = document.querySelector('#registerForm');
@@ -98,4 +101,47 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(email, password);
         login(email, password);
     })};
+
+
+    const setStatus = async (id)=>{
+        axios({
+            method: 'put',
+            url: `${URL_API}/skater/status`,
+            data: {
+                id
+            }
+        })
+        .then(res => {
+            console.log(res.data);
+        });
+    }
+
+    const agregarEventoABotones = () => {
+
+        const checksEdir = document.querySelectorAll("[id*='chkStatus-']");
+
+        if(checksEdir){
+            checksEdir.forEach((check) => {
+                check.addEventListener("click", () => {
+                    const id = check.getAttribute("data-id");
+                    setStatus(id);
+                });
+            });
+        }
+        /*
+        const botonesDel = document.querySelectorAll("[id*='btnDel-']");
+        const botonesUpdate = document.querySelectorAll("[id*='btnUpd-']");
+        
+        botonesDel.forEach((boton) => {
+            boton.addEventListener("click", () => {
+                const dataId = boton.getAttribute("data-id");
+                var fila = boton.closest("tr");
+                fila.remove();
+                removeDeporte(dataId);
+            });
+        });
+
+
+   */ };
+    agregarEventoABotones();
 });

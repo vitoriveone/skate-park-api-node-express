@@ -11,9 +11,9 @@ const __dirname = dirname( __filename );
 import skaterHomeRoutes from '../routes/v1/skaterRoutes.routes.js';
 import loginRoute from '../routes/v1/loginRoutes.routes.js';
 import registerRoute from '../routes/v1/registerRoutes.routes.js';
-//import adminStatusRoute from '../routes/v1/adminStatusRoutes.routes.js';
+import adminSkaterRouteAPI from '../routes/v1/apiSkaterRoutes.routes.js';
 import adminSkatersRoute from '../routes/v1/adminSkatersRoutes.routes.js';
-//import apiSkaterRoute from '../routes/v1/apiSkaterRoutes.routes.js';
+import adminSkaterViewRoutes from '../routes/v1/adminSkaterRoutes.routes.js';
 //import apiSkatersRoute from '../routes/v1/apiSkatersRoutes.routes.js';
 import {verifyTokenMiddleware , verifyTokenCookieMiddleware} from '../middlewares/AuthTokenVerifyMiddleware.js'
 
@@ -24,15 +24,16 @@ class Server {
         this.app = express();
         this.port = process.env.PORT || 8000;
         //TODO Agregar otras variables
-        this.frontEndPaths = {
+        this.frontEnd = {
             rootHome: '/',
             rootLogin: '/login',
             rootRegister: '/register',
             root404: '*'
         };
-        this.frontEndAdminPaths = {
+        this.frontEndAdmin = {
             admin:{
-                stakerts: '/admin/skaters'
+                skaters: '/admin/skaters',
+                skater: '/admin/skater'
             }
         };
         this.backEndApi = {
@@ -65,10 +66,13 @@ class Server {
     };
 
     routes(){
-        this.app.use(this.frontEndPaths.rootHome, skaterHomeRoutes);
-        this.app.use(this.frontEndPaths.rootLogin, loginRoute);
-        this.app.use(this.frontEndPaths.rootRegister, registerRoute);
-        this.app.use(this.frontEndAdminPaths.admin.stakerts, adminSkatersRoute);
+        this.app.use(this.frontEnd.rootHome, skaterHomeRoutes);
+        this.app.use(this.frontEnd.rootLogin, loginRoute);
+        this.app.use(this.frontEnd.rootRegister, registerRoute);
+        this.app.use(this.frontEndAdmin.admin.skaters, adminSkatersRoute);
+        this.app.use(this.backEndApi.v1.skater, adminSkaterRouteAPI);
+        this.app.use(this.frontEndAdmin.admin.skater, adminSkaterViewRoutes);
+
         //this.app.use(this.frontEndAdminPaths.rootAdminEdit, adminEditSkaterRoute);
         //this.app.use(this.backEndApi.v1.skater, apiSkaterRoute);
         //TODO creo q tendré problemas con las rutas protegidas.

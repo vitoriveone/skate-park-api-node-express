@@ -5,8 +5,8 @@ import SkaterMutator from'../utilities/skaterMutator.js'
 
 const insertSkater = async (skater) =>{
     let client;
+
     try{
-        
         const values = Object.values(skater);
         //FIXME agreagr nombre dinámico a los name
         const consulta = {
@@ -64,11 +64,7 @@ const updateSkaterStatus = async (id, estado)=>{
         client = await pool.connect();
         const response = await client.query(consulta)
 
-        return new ApiResponseModel(
-            ApiResponseModel.SUCCESS,
-            200, 
-            SkaterMutator.mutarSkater(response.rows[0]),
-            'OK');
+        return response;
         }catch ( err ) {
             throw new Error(`Error al ejecutar la consulta: ${err.message} código de error: ${err.code} Detalles del error: ${err.detail}`);
         }finally{
@@ -92,11 +88,7 @@ const updateSkater = async (skater) => {
         client = await pool.connect();
         const response = await client.query(consulta)
 
-        return new ApiResponseModel(
-            ApiResponseModel.SUCCESS,
-            200, 
-            SkaterMutator.mutarSkater(response.rows[0]),
-            'OK');
+        return response;
         }catch ( err ) {
             throw new Error(`Error al ejecutar la consulta: ${err.message} código de error: ${err.code} Detalles del error: ${err.detail}`);
         }finally{
@@ -106,7 +98,7 @@ const updateSkater = async (skater) => {
     }
 }
 
-//TODO HAcer lo mismo con los demás.
+//TODO Hacer lo mismo con los demás.
 const findSkater= async (id) =>{
     let client;
     const consulta = {
@@ -141,27 +133,14 @@ const deleteSkater = async (id) => {
         client = await pool.connect();
         const response = await client.query(consulta);
 
-        return new ApiResponseModel(
-            ApiResponseModel.SUCCESS,
-            200, 
-            SkaterMutator.mutarSkater(response.rows[0]),
-            'OK');
-    }catch ( error ) {
-        return new ApiResponseModel(
-            ApiResponseModel.ERROR,
-            500, 
-            [],
-            'Error durante la conexión o la consulta:',
-            {
-                message: `Error al ejecutar la consulta: ${err.message}`,
-                code: `código de error: ${err.code}`,
-                detail: `Detalles del error: ${err.detail}`
-            });
+        return response;
+    }catch ( err ) {
+        throw new Error(`Error al ejecutar la consulta: ${err.message} código de error: ${err.code} Detalles del error: ${err.detail}`);
     }finally{
-        if(client){
-            client.release();
-        }
+    if(client){
+        client.release();
     }
+}
 }
 export {
     insertSkater,

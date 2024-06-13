@@ -18,28 +18,15 @@ const insertSkater = async (skater) =>{
         client = await pool.connect();
         const response = await client.query(consulta);
 
-    return new ApiResponseModel(
-        ApiResponseModel.SUCCESS,
-        200, 
-        SkaterMutator.mutarSkater(response.rows[0]),
-        'OK');
-
-    }catch( err ){
-        return new ApiResponseModel(
-            ApiResponseModel.ERROR,
-            500, 
-            [],
-            'Error durante la conexión o la consulta:',
-            {
-                message: `Error al ejecutar la consulta: ${err.message}`,
-                code: `código de error: ${err.code}`,
-                detail: `Detalles del error: ${err.detail}`
-            });
+        return response;
+        
+    }catch ( err ) {
+        throw new Error(`Error al ejecutar la consulta: ${err.message} código de error: ${err.code} Detalles del error: ${err.detail}`);
     }finally{
-        if(client){
-            client.release();
-        }
+    if(client){
+        client.release();
     }
+}
 }
 
 
@@ -52,24 +39,11 @@ const selectSkaters = async () => {
     try{
         client = await pool.connect();
         const response = await client.query(consulta);
-        console.log(response.rows);
-        return new ApiResponseModel(
-            ApiResponseModel.SUCCESS,
-            200, 
-            SkaterMutator.mutarSkaters(response.rows),
-            'OK');
-    }catch ( err ) {
-        return new ApiResponseModel(
-            ApiResponseModel.ERROR,
-            500, 
-            [],
-            'Error durante la conexión o la consulta:',
-            {
-                message: `Error al ejecutar la consulta: ${err.message}`,
-                code: `código de error: ${err.code}`,
-                detail: `Detalles del error: ${err.detail}`
-            });
-    }finally{
+
+        return response;
+        }catch ( err ) {
+            throw new Error(`Error al ejecutar la consulta: ${err.message} código de error: ${err.code} Detalles del error: ${err.detail}`);
+        }finally{
         if(client){
             client.release();
         }
@@ -95,18 +69,9 @@ const updateSkaterStatus = async (id, estado)=>{
             200, 
             SkaterMutator.mutarSkater(response.rows[0]),
             'OK');
-    }catch ( err ) {
-        return new ApiResponseModel(
-            ApiResponseModel.ERROR,
-            500, 
-            [],
-            'Error durante la conexión o la consulta:',
-            {
-                message: `Error al ejecutar la consulta: ${err.message}`,
-                code: `código de error: ${err.code}`,
-                detail: `Detalles del error: ${err.detail}`
-            });
-    }finally{
+        }catch ( err ) {
+            throw new Error(`Error al ejecutar la consulta: ${err.message} código de error: ${err.code} Detalles del error: ${err.detail}`);
+        }finally{
         if(client){
             client.release();
         }
@@ -132,53 +97,30 @@ const updateSkater = async (skater) => {
             200, 
             SkaterMutator.mutarSkater(response.rows[0]),
             'OK');
-    }catch ( err ) {
-        return new ApiResponseModel(
-            ApiResponseModel.ERROR,
-            500, 
-            [],
-            'Error durante la conexión o la consulta:',
-            {
-                message: `Error al ejecutar la consulta: ${err.message}`,
-                code: `código de error: ${err.code}`,
-                detail: `Detalles del error: ${err.detail}`
-            });
-    }finally{
+        }catch ( err ) {
+            throw new Error(`Error al ejecutar la consulta: ${err.message} código de error: ${err.code} Detalles del error: ${err.detail}`);
+        }finally{
         if(client){
             client.release();
         }
     }
 }
 
-
+//TODO HAcer lo mismo con los demás.
 const findSkater= async (id) =>{
     let client;
     const consulta = {
-        name:"buscar-usuario",
-        text: "SELECT id, email, nombre, anos_experiencia,especialidad,foto FROM skaters WHERE id=$1;",
-        values: [id]
+            name:"buscar-skater",
+            text: "SELECT id, email,nombre, password, anos_experiencia,especialidad,foto, estado FROM skaters WHERE id=$1;",
+            values: [id]
         }
 
     try {
         client = await pool.connect();
         const response = await client.query(consulta);
-        return new ApiResponseModel(
-            ApiResponseModel.SUCCESS,
-            200, 
-            SkaterMutator.mutarSkater(response.rows[0]),
-            'OK');
-        }catch ( error ) {
-        return new ApiResponseModel(
-            ApiResponseModel.ERROR,
-            500, 
-            [],
-            'Error durante la conexión o la consulta:',
-            {
-                message: `Error al ejecutar la consulta: ${err.message}`,
-                code: `código de error: ${err.code}`,
-                detail: `Detalles del error: ${err.detail}`
-            });
-
+        return response;
+        }catch ( err ) {
+            throw new Error(`Error al ejecutar la consulta: ${err.message} código de error: ${err.code} Detalles del error: ${err.detail}`);
         }finally{
         if(client){
             client.release();

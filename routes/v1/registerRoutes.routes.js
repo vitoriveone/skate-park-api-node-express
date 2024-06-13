@@ -1,8 +1,9 @@
 import express from 'express';
-import { getRootRegister} from '../../controllers/registerViewController.js';
+import { getRegisterView, postRegisterSkater } from '../../controllers/registerHandlerController.js';
 
 const router = express.Router();
 
-router.get('/', getRootRegister);
+router.get('/', getRegisterView);
+router.post('/', postRegisterSkater);
 
 export default router;

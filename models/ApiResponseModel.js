@@ -18,6 +18,14 @@ export class ApiResponseModel{
         return this._statusCode;
     }
 
+    get data(){
+        return this._data;
+    }
+
+    set data(data){
+        this._data = data;
+    }
+
     toJSON() {
         return {
             status: this._status,

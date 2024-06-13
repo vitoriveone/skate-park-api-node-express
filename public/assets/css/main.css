@@ -35,3 +35,7 @@ body {
   input{
       text-align: center;
   }
+
+  .avatar {
+    max-width: 7rem;
+  }

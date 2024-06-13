@@ -5,7 +5,7 @@
             });
         }catch(err){
             res.status(500)
-                .render('home',{
+                .render('./errors/500',{
                     layout: 'main',
                     error: err
                 });

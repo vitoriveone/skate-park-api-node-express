@@ -1,3 +1,5 @@
+CREATE DATABASE skatepark;
+
 CREATE TABLE skaters (
     id SERIAL,
     email VARCHAR(50) NOT NULL,

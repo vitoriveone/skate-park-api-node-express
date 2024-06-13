@@ -4,6 +4,7 @@ const getRoot404 = (req, res) => {
             layout: 'main'
         });
     }catch(err){
+        //TODO los errores pueden tener su propio layout.
         res.status(500)
             .render('./errors/500',{
                 layout: 'main',

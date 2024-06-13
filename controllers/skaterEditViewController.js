@@ -11,6 +11,7 @@ const getRootSkaterEdit = (req, res) => {
             });
         }
 }
+
 export {
     getRootSkaterEdit
 }

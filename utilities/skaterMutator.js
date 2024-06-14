@@ -21,6 +21,14 @@ export default class SkaterMutator {
         return skater;
     }
 
+
+    //Formatea objeto para edit
+    static mutarSkaterEdit(skater) {
+        delete skater.estado;
+        delete skater.fecha_creacion;
+        return skater;
+    }
+
     //Formatea array para get admin api
     static mutarSkaters(skaters){
         skaters.forEach(skater => {

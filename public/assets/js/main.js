@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const formLogin = document.querySelector('#loginForm');
     const formRegister = document.querySelector('#registerForm');
     const btnLogout = document.querySelector('#btnLogout');
+    const btnEliminar = document.querySelector('#btnEliminar');
+    const btnActualizar = document.querySelector('#btnActualizar');
 
     const login = (email, password) =>{
         axios({
@@ -73,6 +75,71 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     }
 
+    const eliminarSkater = async (id)=>{
+        try{
+            const response = await axios({
+              method: 'delete',
+              url: `${URL_API}/skater/`,
+              params: {
+                id
+              }
+            }
+          );
+          window.location.href = `${URL_BASE}/admin/skaters`;
+
+          }catch(err){
+            console.log(err);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: err.message
+            });
+          }
+    }
+
+
+    const editarSkater = async (id, nombre, password, passwordRepeat, anos_experiencia, especialidad)=>{
+        //TODO validar password
+        try{
+            const response = await axios({
+              method: 'put',
+              url: `${URL_API}/skater/`,
+              data: {
+                id, 
+                nombre, 
+                password, 
+                anos_experiencia,
+                especialidad
+              }
+            }
+        );
+        window.location.href = `${URL_BASE}/admin/skaters`;
+    }catch(err){
+            console.log(err);
+        }
+    }
+
+    if(btnActualizar){
+        btnActualizar.addEventListener('click',(e)=>{
+            e.preventDefault();
+            const nombre = document.querySelector('#updateNombre').value;
+            const password = document.querySelector('#updatePassword').value;
+            const passwordRepeat = document.querySelector('#updatePasswordRepeat').value;
+            const aniosExperiencia = document.querySelector('#updateAniosExp').value;
+            const especialidad= document.querySelector('#updateEspecialidad').value;      
+            const id = e.target.getAttribute("data-id");
+            editarSkater(id, nombre, password, passwordRepeat, aniosExperiencia, especialidad);
+        })
+    }
+
+    if(btnEliminar){
+        btnEliminar.addEventListener('click',(e)=>{
+            e.preventDefault();
+            const id = e.target.getAttribute("data-id");
+            eliminarSkater(id);
+        })
+    }
+
     if(btnLogout){
         btnLogout.addEventListener('click',(e)=>{
             e.preventDefault();
@@ -128,20 +195,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             });
         }
-        /*
-        const botonesDel = document.querySelectorAll("[id*='btnDel-']");
-        const botonesUpdate = document.querySelectorAll("[id*='btnUpd-']");
+
+        const botonesUpdate = document.querySelectorAll("[id*='edtSkt-']");
         
-        botonesDel.forEach((boton) => {
-            boton.addEventListener("click", () => {
-                const dataId = boton.getAttribute("data-id");
-                var fila = boton.closest("tr");
-                fila.remove();
-                removeDeporte(dataId);
+        if(botonesUpdate){
+            botonesUpdate.forEach((boton) => {
+                boton.addEventListener("click", () => {
+                    const id = boton.getAttribute("data-id");
+                    window.location.href = `${URL_BASE}/admin/skater/edit?id=${id}`;
+                });
             });
-        });
+        }
 
-
-   */ };
+   };
     agregarEventoABotones();
 });

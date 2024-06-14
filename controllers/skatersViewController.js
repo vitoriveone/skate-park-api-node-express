@@ -1,5 +1,5 @@
 import Server from '../models/Server.js';
-import {selectSkaters} from '../service/SkaterService.js'
+import {findSkater, selectSkaters} from '../service/SkaterService.js'
 import SkaterMutator from'../utilities/skaterMutator.js'
 
 const getSkaterHome = async(req, res) => {
@@ -51,16 +51,19 @@ const getSkatersAdmin = async(req, res) => {
 }
 
 const getSkaterAdminEdit = async(req, res) => {
-    //TODO agreagr paginador
-    //const {paginator} = req.query;
-
     try{
-        
-        
-        res.render('./admin/home',{
+    const id = req.query.id;
+    if(!id){
+        res.redirect(`${Server.URL}/admin/skaters`);
+    }
+
+    const {rows} = await findSkater(id);
+    const skater = SkaterMutator.mutarSkaterEdit(rows[0]);
+
+    res.render('./admin/editSkater',{
             layout: 'main',
-            title: 'Administración',
-            skater: {},
+            title: 'título',
+            skater,
             url: Server.URL
         });
     }catch(err){

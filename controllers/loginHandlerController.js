@@ -1,10 +1,8 @@
 import Server from '../models/Server.js';
 import {authUser} from '../service/AuthServiceProvider.js'
-import SkaterMutator from'../utilities/skaterMutator.js'
 import {ApiResponseModel} from '../models/ApiResponseModel.js'
 
-import jwt from "jsonwebtoken";
-const SECRET_KEY = 'mi_secreto';
+
 
 const getLoginView = async (req, res) => {
     try{
@@ -15,8 +13,8 @@ const getLoginView = async (req, res) => {
         });
     }catch(err){
         res.status(500)
-            .render('./errors/500',{
-                layout: 'error',
+            .render('./errors/error',{
+                layout: 'errorBase',
                 title: '500',
                 message: 'Error',
                 error: err

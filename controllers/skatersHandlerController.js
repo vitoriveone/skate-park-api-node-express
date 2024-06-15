@@ -1,6 +1,7 @@
-import { insertSkater, selectSkaters, updateSkater, deleteSkater, findSkater, updateSkaterStatus } from '../service/SkaterService.js';
+import { updateSkater, deleteSkater, findSkater, updateSkaterStatus } from '../service/SkaterService.js';
 import {ApiResponseModel} from '../models/ApiResponseModel.js'
 import SkaterMutator from'../utilities/skaterMutator.js'
+import { removeFileAvatar } from '../service/ImagesUploadService.js'
 
 const putSkaterStatusUpdate = async (req, res) => {
     const {id} = req.body;
@@ -45,6 +46,9 @@ const deleteSkaterDestroy = async (req, res) => {
     }else{
         try{
             const response = await deleteSkater(id);
+            const foto_name = response.rows[0].foto;
+            const result = await removeFileAvatar(foto_name);
+            console.log(result);
 
             const apiResponse = new ApiResponseModel(
                 ApiResponseModel.SUCCESS,

@@ -2,15 +2,15 @@
         <div class="form-group row w-50 m-auto">
           <div class="form-group col-12 col-sm-6">
             <label>Email</label>
-            <input class="form-control m-auto" id="registerEmail" />
+            <input class="form-control m-auto" id="registerEmail" name="email" />
           </div>
           <div class="form-group col-12 col-sm-6">
             <label>Nombre</label>
-            <input class="form-control m-auto" id="registerNombre"/>
+            <input class="form-control m-auto" id="registerNombre" name="nombre"/>
           </div>
           <div class="form-group col-12 col-sm-6">
             <label>Password</label>
-            <input class="form-control m-auto" id="registerPassword" />
+            <input class="form-control m-auto" id="registerPassword" name="password"/>
           </div>
           <div class="form-group col-12 col-sm-6">
             <label>Repita la password</label>
@@ -18,17 +18,17 @@
           </div>
           <div class="form-group col-12 col-sm-6">
             <label>Años de experiencia</label>
-            <input class="form-control m-auto" id="registerAniosExp" />
+            <input class="form-control m-auto" id="registerAniosExp" name="anos_experiencia"/>
           </div>
           <div class="form-group col-12 col-sm-6">
             <label>Especialidad</label>
-            <input class="form-control m-auto" id="registerEspecialidad" />
+            <input class="form-control m-auto" id="registerEspecialidad" name="especialidad" />
           </div>
           <div class="form-group col-12 col-sm-12">
             <label>Foto de perfil</label>
-            <input type="file" id="registerFotoFile" />
+            <input type="file" name="foto" id="registerFotoFile" />
           </div>
         </div>
-        <button class="btn btn-info mb-3">Registrarme</button>
+        <button class="btn btn-info mb-3" type="submit" >Registrarme</button>
         <p><a href="{{url}}/login"> Iniciar sesión</a></p>
       </form>

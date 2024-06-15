@@ -17,8 +17,8 @@ const getSkaterHome = async(req, res) => {
         });
     }catch(err){
         res.status(500)
-            .render('./errors/500',{
-                layout: 'error',
+            .render('./errors/error',{
+                layout: 'errorBase',
                 title: '500',
                 message: 'Error',
                 error: err
@@ -37,12 +37,13 @@ const getSkatersAdmin = async(req, res) => {
             layout: 'main',
             title: 'Administración',
             skaters: SkaterMutator.mutarSkaters(skaters.rows),
-            url: Server.URL
+            url: Server.URL,
+            login: true
         });
     }catch(err){
         res.status(500)
-            .render('./errors/500',{
-                layout: 'error',
+            .render('./errors/error',{
+                layout: 'errorBase',
                 title: '500',
                 message: 'Error',
                 error: err
@@ -62,14 +63,15 @@ const getSkaterAdminEdit = async(req, res) => {
 
     res.render('./admin/editSkater',{
             layout: 'main',
-            title: 'título',
+            title: 'Datos del perfil',
             skater,
-            url: Server.URL
+            url: Server.URL,
+            login: true
         });
     }catch(err){
         res.status(500)
-            .render('./errors/500',{
-                layout: 'error',
+            .render('./errors/error',{
+                layout: 'errorBase',
                 title: '500',
                 message: 'Error',
                 error: err

@@ -1,7 +1,5 @@
-//Skater
 import pool from "../config/conexion.js";
-import {ApiResponseModel} from '../models/ApiResponseModel.js'
-import SkaterMutator from'../utilities/skaterMutator.js'
+
 
 const insertSkater = async (skater) =>{
     let client;
@@ -73,7 +71,7 @@ const updateSkaterStatus = async (id, estado)=>{
         }
     }
 } 
-//TODO no se si lo esattus de update son 200 u otro.
+
 const updateSkater = async (skater) => {
     let client
     try {
@@ -98,7 +96,6 @@ const updateSkater = async (skater) => {
     }
 }
 
-//TODO Hacer lo mismo con los demás.
 const findSkater= async (id) =>{
     let client;
     const consulta = {
@@ -120,7 +117,7 @@ const findSkater= async (id) =>{
     }
 }
 
-//TODO este es con query params o :id
+
 const deleteSkater = async (id) => {
     let client
     try {

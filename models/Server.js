@@ -1,6 +1,7 @@
 import express from 'express';
 import { create } from 'express-handlebars';
 import cookieParser from "cookie-parser";
+import fileUpload from "express-fileupload";
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -14,16 +15,14 @@ import registerRoute from '../routes/v1/registerRoutes.routes.js';
 import adminSkaterRouteAPI from '../routes/v1/apiSkaterRoutes.routes.js';
 import adminSkatersRoute from '../routes/v1/adminSkatersRoutes.routes.js';
 import adminSkaterViewRoutes from '../routes/v1/adminSkaterRoutes.routes.js';
-//import apiSkatersRoute from '../routes/v1/apiSkatersRoutes.routes.js';
-import {verifyTokenMiddleware , verifyTokenCookieMiddleware} from '../middlewares/AuthTokenVerifyMiddleware.js'
 
-//import error404Routes from '../routes/v1/error404Routes.routes.js';
+import {verifyTokenMiddleware , verifyTokenCookieMiddleware} from '../middlewares/AuthTokenVerifyMiddleware.js'
+import error404Routes from '../routes/v1/error404Routes.routes.js';
 
 class Server {
     constructor(){
         this.app = express();
         this.port = process.env.PORT || 8000;
-        //TODO Agregar otras variables
         this.frontEnd = {
             rootHome: '/',
             rootLogin: '/login',
@@ -49,13 +48,20 @@ class Server {
     static URL = `http://localhost:${(process.env.PORT || 8000)}`;
 
     middlewares(){
-        console.log('HOST', );
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(cookieParser());
+        //FIXME a config
+        this.app.use(fileUpload({
+                limits:{ fileSize: 3000000 }, //3MB
+                abortOnLimit :true,
+                //TODO mostrar como alerta
+                responseOnLimit : "Ha superado el límite de 3MB por imagen."
+            }))
+        this.app.use(express.static('public'));
         this.app.use('/css', express.static(`${__dirname}/../public/assets/css`));
         this.app.use('/js', express.static(`${__dirname}/../public/assets/js`));
-        this.app.use('/img', express.static(`${__dirname}/../public/assets/img`));
+        this.app.use('/img/avatar', express.static(`${__dirname}/../public/assets/img/avatar`));
         this.app.use('/bootstrap', express.static(`${__dirname}/../node_modules/bootstrap/dist/css`));
         this.app.use('/bootstrap', express.static(`${__dirname}/../node_modules/bootstrap/dist/js`));
         this.app.use('/jquery', express.static(`${__dirname}/../node_modules/jquery/dist`));
@@ -73,12 +79,8 @@ class Server {
         this.app.use(this.backEndApi.v1.skater, adminSkaterRouteAPI);
         this.app.use(this.frontEndAdmin.admin.skater, adminSkaterViewRoutes);
 
-        //this.app.use(this.frontEndAdminPaths.rootAdminEdit, adminEditSkaterRoute);
-        //this.app.use(this.backEndApi.v1.skater, apiSkaterRoute);
-        //TODO creo q tendré problemas con las rutas protegidas.
-        //this.app.use(this.backEndApi.v1.skaters, apiSkatersRoute);
 
-        //this.app.use(this.frontEndPaths.root404, error404Routes);
+        this.app.use(this.frontEnd.root404, error404Routes);
     }
 
     listen(){
@@ -97,7 +99,7 @@ class Server {
         this.hbs.handlebars.registerHelper('incrementIndex', (index) => {
             return index + 1;
         });
-        //TODO cambiar a HBS
+
         this.app.engine( "handlebars", this.hbs.engine );
         this.app.set("view engine","handlebars");
     }

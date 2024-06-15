@@ -1,5 +1,4 @@
 
-//TODO revisar la api model.
 export class ApiResponseModel{
     constructor(status, statusCode, data, message, error){
         this._status = status;

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    //TODO poner la URL global
+
     const URL_BASE = 'http://localhost:3000';
     const URL_API = `${URL_BASE}/api/v1`;
 
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const login = (email, password) =>{
         axios({
             method: 'post',
-            url: '/login',
+            url: `${URL_BASE}/login`,
             data: {
                 email,
                 password
@@ -35,40 +35,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    const register = (email,nombre, password, passwordRepeat, anos_experiencia, especialidad, foto)=>{
-        //TODO validacion de password
-        axios({
-            method: 'post',
-            url: '/register',
-            data: {
-                email,
-                nombre,
-                password,
-                anos_experiencia,
-                especialidad,
-                foto
-            }
-        })
-        .then(res => {
-            if(res.data){
-                console.log(res.data);
-                //localStorage.setItem('token', JSON.stringify(`${res.data}`));
-                //window.location.href = `/?token=${res.data}`;
-            }else{
-                Swal.fire({
-                    icon: "error",
-                    title: 'Login',
-                    text: 'Usuario o contraseña incorrectos.'
-                  });
-            }
-            
-        });
+    const register = async (email,nombre, password, passwordRepeat, anos_experiencia, especialidad, foto)=>{
+
     }
 
     const logOut = ()=> {
         axios({
             method: 'post',
-            url: '/login/out'
+            url: `${URL_BASE}/login/out`,
         })
         .then(res => {
             console.log(res);
@@ -88,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
           window.location.href = `${URL_BASE}/admin/skaters`;
 
           }catch(err){
-            console.log(err);
             Swal.fire({
               icon: "error",
               title: "Oops...",
@@ -99,24 +72,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     const editarSkater = async (id, nombre, password, passwordRepeat, anos_experiencia, especialidad)=>{
-        //TODO validar password
-        try{
-            const response = await axios({
-              method: 'put',
-              url: `${URL_API}/skater/`,
-              data: {
-                id, 
-                nombre, 
-                password, 
-                anos_experiencia,
-                especialidad
-              }
-            }
-        );
-        window.location.href = `${URL_BASE}/admin/skaters`;
-    }catch(err){
+        
+        if(password!==passwordRepeat){
+            Swal.fire({
+                icon: "error",
+                title: "Login",
+                text: 'Las contraseñas no coinciden.'
+              });
+        }else{
+            try{
+                const response = await axios({
+                method: 'put',
+                url: `${URL_API}/skater/`,
+                data: {
+                    id, 
+                    nombre, 
+                    password, 
+                    anos_experiencia,
+                    especialidad
+                }
+                }
+            );
+            window.location.href = `${URL_BASE}/admin/skaters`;
+        }catch(err){
             console.log(err);
         }
+    }
     }
 
     if(btnActualizar){
@@ -148,16 +129,56 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if(formRegister){
-    formRegister.addEventListener('submit',(e)=>{
+    formRegister.addEventListener('submit',async (e)=>{
         e.preventDefault();
         const email = document.querySelector('#registerEmail').value;
         const nombre = document.querySelector('#registerNombre').value;
         const password = document.querySelector('#registerPassword').value;
         const passwordRepeat = document.querySelector('#registerPasswordRepeat').value;
-        const aniosExperiencia = document.querySelector('#registerAniosExp').value;
+        const anosExperiencia = document.querySelector('#registerAniosExp').value;
         const especialidad= document.querySelector('#registerEspecialidad').value;
-        //TODO Agreagr la foto despues
-        register(email,nombre, password, passwordRepeat, aniosExperiencia, especialidad, '');
+        const fotoInput = document.querySelector('#registerFotoFile');
+        const foto = fotoInput.files[0];
+
+        const formData = new FormData();
+        formData.append('email',email);
+        formData.append('nombre',nombre);
+        formData.append('password',password);
+        formData.append('anos_experiencia',anosExperiencia);
+        formData.append('especialidad',especialidad);
+        formData.append('foto',foto);
+
+        if(password!=passwordRepeat){
+            Swal.fire({
+                icon: "error",
+                title: 'Login',
+                text: 'Las contraseñas no coinciden.'
+              });
+        }else{
+       /* const response = await fetch('/register', {
+            method: 'POST',
+            body: formData
+          });*/
+        
+        axios({
+            method: 'post',
+            url: `${URL_BASE}/register`,
+            data: formData
+        })
+        .then(res => {
+            if(res.data){
+                window.location.href = `/`;
+            }else{
+                Swal.fire({
+                    icon: "error",
+                    title: 'Login',
+                    text: 'Usuario o contraseña incorrectos.'
+                  });
+            }
+            
+        });
+    }
+
     })};
 
     if(formLogin){

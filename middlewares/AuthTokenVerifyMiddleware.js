@@ -6,8 +6,8 @@ export const verifyTokenCookieMiddleware = async (req, res, next) => {
     const cookie = req.cookies.token;
     if(!cookie){
         return res.status(401)
-        .render('./errors/500',{
-            layout: 'error',
+        .render('./errors/error',{
+            layout: 'errorBase',
             title: '401',
             message: 'Acceso no autorizado.',
             error: '',
@@ -17,10 +17,9 @@ export const verifyTokenCookieMiddleware = async (req, res, next) => {
     const [token, id] = cookie.split(':');
 
     if (!token&&!id) {
-        //TODO redirecciona a error 401 resl layout partial
-        return res.status(401)
-        .render('./errors/500',{
-            layout: 'error',
+        return  res.status(401)
+        .render('./errors/error',{
+            layout: 'errorBase',
             title: '401',
             message: 'Acceso no autorizado.',
             error: '',
@@ -28,15 +27,14 @@ export const verifyTokenCookieMiddleware = async (req, res, next) => {
         });
     }
         
-        //TODO dejar todos los error al mismo layput que cambie solo el titulo y el n de error.
     try {
 
         const skater = await isAuthenticated(token, id);
 
         if(!skater.estado){
-            return res.status(401)
-            .render('./errors/500',{
-                layout: 'error',
+            return es.status(401)
+            .render('./errors/error',{
+                layout: 'errorBase',
                 title: '401',
                 message: `Bienvenido ${skater.nombre}, su acceso todavía no  ha sido autorizado.`,
                 error: '',
@@ -48,8 +46,8 @@ export const verifyTokenCookieMiddleware = async (req, res, next) => {
     } catch (err) {
         console.error(err);
         return res.status(401)
-        .render('./errors/500',{
-            layout: 'error',
+        .render('./errors/error',{
+            layout: 'errorBase',
             title: '500',
             message:'Acceso no autorizado.',
             error: ''
@@ -59,5 +57,6 @@ export const verifyTokenCookieMiddleware = async (req, res, next) => {
 
 export const verifyTokenMiddleware = (req, res, next) => { 
 
+    
     next();
 }

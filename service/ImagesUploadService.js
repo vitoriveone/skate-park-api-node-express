@@ -7,9 +7,9 @@ const __dirname = path.dirname(__filename);
 
 const IMAGES_DIR = path.join(`${__dirname}/../public/assets/img/avatar`)
 
-const genImageName = () =>{
+const genImageName = () => {
     const caracters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const len = 8; 
+    const len = 8;
     let ImageName = '';
 
     for (let i = 0; i < len; i++) {
@@ -22,32 +22,32 @@ const genImageName = () =>{
     return nameGen;
 }
 
-const saveFileAvatar = (foto) =>{
-    
+const saveFileAvatar = (foto) => {
+
     //const fotoName = foto.name;
-    const fotoName  = genImageName();
-    
-    let fotoPath = path.join( IMAGES_DIR, fotoName);
-  
+    const fotoName = genImageName();
+
+    let fotoPath = path.join(IMAGES_DIR, fotoName);
+
     foto.mv(fotoPath, (err) => {
-      if (err) {
-        return null;
-      }
+        if (err) {
+            return null;
+        }
     });
 
     return fotoName;
 }
 
 const removeFileAvatar = async (foto) => {
-    try{
+    try {
         fs.unlink(`${IMAGES_DIR}/${foto}`, (err) => {
             if (err) {
                 console.error(err);
-               
+
             }
         });
         return true;
-    }catch(err){
+    } catch (err) {
         return false;
     }
 

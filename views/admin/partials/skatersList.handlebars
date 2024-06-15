@@ -1,17 +1,17 @@
 <table class="table w-50 m-auto">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Foto</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Años de experiencia</th>
-            <th scope="col">Especialidad</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Editar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each skaters}}
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Foto</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Años de experiencia</th>
+      <th scope="col">Especialidad</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Editar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each skaters}}
     <tr>
       <th scope="row">{{incrementIndex @index}}</th>
       <td><img src="/img/avatar/{{this.foto}}" alt="" class="rounded avatar"></td>
@@ -19,14 +19,14 @@
       <td>{{this.anos_experiencia}}</td>
       <td>{{this.especialidad}}</td>
       {{#if this.estado}}
-      <td><input class="form-check-input" type="checkbox" checked id="chkStatus-{{this.id}}" data-id="{{this.id}}"/></td>
+      <td><input class="form-check-input" type="checkbox" checked id="chkStatus-{{this.id}}" data-id="{{this.id}}" />
+      </td>
       {{else}}
       <td><input class="form-check-input" type="checkbox" id="chkStatus-{{this.id}}" data-id="{{this.id}}" /></td>
       {{/if}}
-      <td><button class="btn btn-danger" id="edtSkt-{{this.id}}" data-id="{{this.id}}" >Editar</button></td>
+      <td><button class="btn btn-danger" id="edtSkt-{{this.id}}" data-id="{{this.id}}">Editar</button></td>
     </tr>
-            
-     {{/each}}
-        </tbody>
-      </table>
-  
+
+    {{/each}}
+  </tbody>
+</table>

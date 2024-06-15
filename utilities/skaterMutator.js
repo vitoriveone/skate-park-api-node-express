@@ -1,15 +1,14 @@
 export default class SkaterMutator {
-    constructor(){
+    constructor() {
 
     }
-    //FIXME invertir las propiedades
 
     //Formatea para objeto login Auth
     static mutarSkaterAuth(skater, token) {
         delete skater.password;
         delete skater.estado;
         delete skater.fecha_creacion;
-        skater.token = token; 
+        skater.token = token;
         return skater;
     }
 
@@ -30,7 +29,7 @@ export default class SkaterMutator {
     }
 
     //Formatea array para get admin api
-    static mutarSkaters(skaters){
+    static mutarSkaters(skaters) {
         skaters.forEach(skater => {
             delete skater.password;
             //delete skater.estado;
@@ -40,7 +39,7 @@ export default class SkaterMutator {
     }
 
     //Formatea array para get publico
-    static mutarSkatersBasic(skaters){
+    static mutarSkatersBasic(skaters) {
         skaters.forEach(skater => {
             delete skater.id;
             delete skater.email;

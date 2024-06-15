@@ -6,8 +6,8 @@ import fileUpload from "express-fileupload";
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
-const __filename = fileURLToPath( import.meta.url );
-const __dirname = dirname( __filename );
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 import skaterHomeRoutes from '../routes/v1/skaterRoutes.routes.js';
 import loginRoute from '../routes/v1/loginRoutes.routes.js';
@@ -16,11 +16,11 @@ import adminSkaterRouteAPI from '../routes/v1/apiSkaterRoutes.routes.js';
 import adminSkatersRoute from '../routes/v1/adminSkatersRoutes.routes.js';
 import adminSkaterViewRoutes from '../routes/v1/adminSkaterRoutes.routes.js';
 
-import {verifyTokenMiddleware , verifyTokenCookieMiddleware} from '../middlewares/AuthTokenVerifyMiddleware.js'
+import { verifyTokenMiddleware, verifyTokenCookieMiddleware } from '../middlewares/AuthTokenVerifyMiddleware.js'
 import error404Routes from '../routes/v1/error404Routes.routes.js';
 
 class Server {
-    constructor(){
+    constructor() {
         this.app = express();
         this.port = process.env.PORT || 8000;
         this.frontEnd = {
@@ -30,13 +30,13 @@ class Server {
             root404: '*'
         };
         this.frontEndAdmin = {
-            admin:{
+            admin: {
                 skaters: '/admin/skaters',
                 skater: '/admin/skater'
             }
         };
         this.backEndApi = {
-            v1:{
+            v1: {
                 skater: '/api/v1/skater',
                 skaters: '/api/v1/skaters',
             }
@@ -45,17 +45,15 @@ class Server {
         this.routes();
     }
 
-    middlewares(){
+    middlewares() {
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(cookieParser());
-        //FIXME a config
         this.app.use(fileUpload({
-                limits:{ fileSize: 3000000 }, //3MB
-                abortOnLimit :true,
-                //TODO mostrar como alerta
-                responseOnLimit : "Ha superado el límite de 3MB por imagen."
-            }))
+            limits: { fileSize: 3000000 },
+            abortOnLimit: true,
+            responseOnLimit: "Ha superado el límite de 3MB por imagen."
+        }))
         this.app.use(express.static('public'));
         this.app.use('/css', express.static(`${__dirname}/../public/assets/css`));
         this.app.use('/js', express.static(`${__dirname}/../public/assets/js`));
@@ -65,12 +63,10 @@ class Server {
         this.app.use('/jquery', express.static(`${__dirname}/../node_modules/jquery/dist`));
         this.app.use('/axios', express.static(__dirname + '/../node_modules/axios/dist'));
 
-        //Middlewares
         this.app.use('/admin', verifyTokenCookieMiddleware);
-        //this.app.use(this.backEndApi.v1, verifyTokenCookieMiddleware);
     };
 
-    routes(){
+    routes() {
         this.app.use(this.frontEnd.rootHome, skaterHomeRoutes);
         this.app.use(this.frontEnd.rootLogin, loginRoute);
         this.app.use(this.frontEnd.rootRegister, registerRoute);
@@ -82,13 +78,13 @@ class Server {
         this.app.use(this.frontEnd.root404, error404Routes);
     }
 
-    listen(){
+    listen() {
         this.app.listen(this.port, () => {
             console.log(`Servidor corriendo en el puerto ${this.port}`);
         });
     }
 
-    initHandlebars(){
+    initHandlebars() {
         this.hbs = create({
             partialsDir: [
                 "views"
@@ -99,8 +95,8 @@ class Server {
             return index + 1;
         });
 
-        this.app.engine( "handlebars", this.hbs.engine );
-        this.app.set("view engine","handlebars");
+        this.app.engine("handlebars", this.hbs.engine);
+        this.app.set("view engine", "handlebars");
     }
 };
 

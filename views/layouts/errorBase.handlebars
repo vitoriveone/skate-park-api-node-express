@@ -1,109 +1,112 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="Víctor Riveros R."/>
+    <meta name="author" content="Víctor Riveros R." />
     <title>Error</title>
-        <style>
-    .container__home {
-    width: 1000px;
-    margin: 0 auto;
-}
+    <style>
+        .container__home {
+            width: 1000px;
+            margin: 0 auto;
+        }
 
-.cart__counter {
-    top: 1.7rem;
-    text-align: center;
-    font-weight: bold;
-    width: 1.6rem;
-    left: calc((100vw - 1.2rem)/2);
-    color: white;
-    position: absolute;
-    background-color: crimson;
-    border-radius: 50%;
-}
+        .cart__counter {
+            top: 1.7rem;
+            text-align: center;
+            font-weight: bold;
+            width: 1.6rem;
+            left: calc((100vw - 1.2rem)/2);
+            color: white;
+            position: absolute;
+            background-color: crimson;
+            border-radius: 50%;
+        }
 
-.item__card {
-    position: relative;
-    max-width: 300px;
-    margin: 1rem;
-}
+        .item__card {
+            position: relative;
+            max-width: 300px;
+            margin: 1rem;
+        }
 
-#shoppingCart .item__card {
-    max-width: 150px;
-}
+        #shoppingCart .item__card {
+            max-width: 150px;
+        }
 
-#shoppingCart .item__card h2 {
-    display: none;
-}
+        #shoppingCart .item__card h2 {
+            display: none;
+        }
 
-.item__card img {
-    max-width: 150px;
-    width: 100%;
-}
+        .item__card img {
+            max-width: 150px;
+            width: 100%;
+        }
 
-.item__card h2 {
-    position: absolute;
-    top: 10px;
-    left: 25px;
-}
+        .item__card h2 {
+            position: absolute;
+            top: 10px;
+            left: 25px;
+        }
 
-.item__click{
-    top: 0;
-    left: 0;
-    cursor: pointer;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: #ffffff;
-    opacity: 0;
-    z-index: 999;
-}
+        .item__click {
+            top: 0;
+            left: 0;
+            cursor: pointer;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-color: #ffffff;
+            opacity: 0;
+            z-index: 999;
+        }
 
-.item__clickSelected {
-    opacity: .5;
-}
+        .item__clickSelected {
+            opacity: .5;
+        }
 
-.error__main{
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    color: #212529;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
+        .error__main {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-.error__container{
-    text-align: center;
-}
+        .error__container {
+            text-align: center;
+        }
 
-.error-code {
-    font-size: 72px;
-    margin-bottom: 20px;
-}
+        .error-code {
+            font-size: 72px;
+            margin-bottom: 20px;
+        }
 
-.error-message {
-    font-size: 24px;
-    margin-bottom: 40px;
-}
+        .error-message {
+            font-size: 24px;
+            margin-bottom: 40px;
+        }
 
-.back-link {
-    color: #007bff;
-    text-decoration: none;
-}
+        .back-link {
+            color: #007bff;
+            text-decoration: none;
+        }
 
-.back-link:hover {
-    text-decoration: underline;
-}
-   </style>
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
+
 <body>
     {{{body}}}
     <script type="module" src="/axios/axios.min.js"></script>
     <script type="module" src="http://localhost:3000/js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </html>

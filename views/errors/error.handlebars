@@ -1,0 +1,10 @@
+<main class="error__main">
+    <div class="error__container">
+        <h1 class="error-code">{{title}}</h1>
+        <p class="error-message">{{message}}</p>
+        <a href="/" class="back-link">Volver a la página principal</a>
+        {{#if login}}
+        <p><a href="#" class="back-link" id="btnLogout">LogOut</a></p>
+        {{/if}}
+    </div>
+</main>

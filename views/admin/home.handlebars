@@ -1,0 +1,10 @@
+<h1>Skate Park</h1>
+{{#if login}}
+<p><a href="#" class="btn btn btn-primary" id="btnLogout">LogOut</a></p>
+{{/if}}
+<div class="py-4">
+  <h2>{{title}}</h2>
+  <hr class="w-50" />
+
+  {{> admin/partials/skatersList}}
+</div>

@@ -1,4 +1,4 @@
-import Server from '../models/Server.js';
+
 import {authUser} from '../service/AuthServiceProvider.js'
 import {ApiResponseModel} from '../models/ApiResponseModel.js'
 
@@ -8,8 +8,7 @@ const getLoginView = async (req, res) => {
     try{
         res.render('login',{
             layout: 'main',
-            title: 'Iniciar Sesión',
-            url: Server.URL
+            title: 'Iniciar Sesión'
         });
     }catch(err){
         res.status(500)

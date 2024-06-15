@@ -31,8 +31,18 @@ export const verifyTokenCookieMiddleware = async (req, res, next) => {
 
         const skater = await isAuthenticated(token, id);
 
+        if(skater==null){
+            return  res.status(401)
+            .render('./errors/error',{
+                layout: 'errorBase',
+                title: '401',
+                message: 'Acceso no autorizado.',
+                error: '',
+            });
+        }
+
         if(!skater.estado){
-            return es.status(401)
+            return res.status(401)
             .render('./errors/error',{
                 layout: 'errorBase',
                 title: '401',
@@ -45,12 +55,12 @@ export const verifyTokenCookieMiddleware = async (req, res, next) => {
         next();
     } catch (err) {
         console.error(err);
-        return res.status(401)
+        return res.status(500)
         .render('./errors/error',{
             layout: 'errorBase',
             title: '500',
             message:'Acceso no autorizado.',
-            error: ''
+            error: err.message
         });
     }
 }

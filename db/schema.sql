@@ -14,8 +14,7 @@ CREATE TABLE skaters (
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
 INSERT INTO skaters (email, nombre, password, anos_experiencia, especialidad, foto, estado) VALUES
-('','Tony Hawk','123456','12','Kickflip','',true)
-('','Evelien Bouilliart','123456','10','Heelflip','',false)
-('','Danny Way','123456','8','Ollie','',false)
+('tony.hawk@th.com','Tony Hawk','123456','12','Kickflip','tony.jpg',true),
+('evelien.bouilliart@eb.com','Evelien Bouilliart','123456','10','Heelflip','Evelien.jpg',false),
+('danny.way@dw.com','Danny Way','123456','8','Ollie','Danny.jpg',false);

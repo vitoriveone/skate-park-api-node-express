@@ -1,15 +1,13 @@
 import { insertSkater } from '../service/SkaterService.js';
 import {ApiResponseModel} from '../models/ApiResponseModel.js'
 import SkaterMutator from'../utilities/skaterMutator.js'
-import Server from '../models/Server.js';
 import { saveFileAvatar } from '../service/ImagesUploadService.js'
 
 const getRegisterView = async (req, res) => {
     try{
         res.render('register',{
             layout: 'main',
-            title: 'Registro',
-            url: Server.URL
+            title: 'Registro'
         });
     }catch(err){
         res.status(500)

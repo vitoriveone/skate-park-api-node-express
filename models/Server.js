@@ -44,8 +44,6 @@ class Server {
         this.middlewares();
         this.routes();
     }
-    
-    static URL = `http://localhost:${(process.env.PORT || 8000)}`;
 
     middlewares(){
         this.app.use(express.json());
@@ -69,6 +67,7 @@ class Server {
 
         //Middlewares
         this.app.use('/admin', verifyTokenCookieMiddleware);
+        //this.app.use(this.backEndApi.v1, verifyTokenCookieMiddleware);
     };
 
     routes(){

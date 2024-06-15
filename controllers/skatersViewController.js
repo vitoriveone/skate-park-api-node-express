@@ -1,4 +1,4 @@
-import Server from '../models/Server.js';
+
 import {findSkater, selectSkaters} from '../service/SkaterService.js'
 import SkaterMutator from'../utilities/skaterMutator.js'
 
@@ -12,8 +12,7 @@ const getSkaterHome = async(req, res) => {
         res.render('home',{
             layout: 'main',
             title: 'Lista de participantes',
-            skaters: SkaterMutator.mutarSkatersBasic(skaters.rows),
-            url: Server.URL
+            skaters: SkaterMutator.mutarSkatersBasic(skaters.rows)
         });
     }catch(err){
         res.status(500)
@@ -37,7 +36,6 @@ const getSkatersAdmin = async(req, res) => {
             layout: 'main',
             title: 'Administración',
             skaters: SkaterMutator.mutarSkaters(skaters.rows),
-            url: Server.URL,
             login: true
         });
     }catch(err){
@@ -55,7 +53,7 @@ const getSkaterAdminEdit = async(req, res) => {
     try{
     const id = req.query.id;
     if(!id){
-        res.redirect(`${Server.URL}/admin/skaters`);
+        res.redirect('/admin/skaters');
     }
 
     const {rows} = await findSkater(id);
@@ -65,7 +63,6 @@ const getSkaterAdminEdit = async(req, res) => {
             layout: 'main',
             title: 'Datos del perfil',
             skater,
-            url: Server.URL,
             login: true
         });
     }catch(err){

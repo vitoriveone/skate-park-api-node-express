@@ -1,9 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const URL_BASE = 'http://localhost:3000';
-    const URL_API = `${URL_BASE}/api/v1`;
-
-
     const formLogin = document.querySelector('#loginForm');
     const formRegister = document.querySelector('#registerForm');
     const btnLogout = document.querySelector('#btnLogout');
@@ -13,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const login = (email, password) =>{
         axios({
             method: 'post',
-            url: `${URL_BASE}/login`,
+            url: `/login`,
             data: {
                 email,
                 password
@@ -35,17 +31,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    const register = async (email,nombre, password, passwordRepeat, anos_experiencia, especialidad, foto)=>{
-
-    }
 
     const logOut = ()=> {
         axios({
             method: 'post',
-            url: `${URL_BASE}/login/out`,
+            url: `/login/out`,
         })
         .then(res => {
-            console.log(res);
+            window.location.href = `/`;
         })
     }
 
@@ -53,13 +46,13 @@ document.addEventListener("DOMContentLoaded", () => {
         try{
             const response = await axios({
               method: 'delete',
-              url: `${URL_API}/skater/`,
+              url: `/api/v1/skater/`,
               params: {
                 id
               }
             }
           );
-          window.location.href = `${URL_BASE}/admin/skaters`;
+          window.location.href = `/admin/skaters`;
 
           }catch(err){
             Swal.fire({
@@ -83,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
             try{
                 const response = await axios({
                 method: 'put',
-                url: `${URL_API}/skater/`,
+                url: `/api/v1/skater/`,
                 data: {
                     id, 
                     nombre, 
@@ -93,9 +86,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 }
             );
-            window.location.href = `${URL_BASE}/admin/skaters`;
+            window.location.href = `/admin/skaters`;
         }catch(err){
-            console.log(err);
+            //console.log(err);
         }
     }
     }
@@ -162,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         axios({
             method: 'post',
-            url: `${URL_BASE}/register`,
+            url: `/register`,
             data: formData
         })
         .then(res => {
@@ -186,7 +179,6 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         const email = document.querySelector('#loginEmail').value;
         const password = document.querySelector('#loginPass').value;
-        console.log(email, password);
         login(email, password);
     })};
 
@@ -194,13 +186,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const setStatus = async (id)=>{
         axios({
             method: 'put',
-            url: `${URL_API}/skater/status`,
+            url: `/api/v1/skater/status`,
             data: {
                 id
             }
         })
         .then(res => {
-            console.log(res.data);
+            //console.log(res.data);
         });
     }
 
@@ -223,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
             botonesUpdate.forEach((boton) => {
                 boton.addEventListener("click", () => {
                     const id = boton.getAttribute("data-id");
-                    window.location.href = `${URL_BASE}/admin/skater/edit?id=${id}`;
+                    window.location.href = `/admin/skater/edit?id=${id}`;
                 });
             });
         }

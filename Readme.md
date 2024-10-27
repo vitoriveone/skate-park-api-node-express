@@ -22,5 +22,3 @@ Este repositorio contiene una aplicación backend desarrollada con Node.js y Exp
 ## Licencia
 Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](./LICENSE) para más detalles.
 
-## Contacto
-Para cualquier consulta o sugerencia, por favor contáctame en riverosvictordev@gmail.com.

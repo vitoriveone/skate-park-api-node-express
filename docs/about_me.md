@@ -8,4 +8,3 @@ Soy un Profesional integral amante de la programación y la informática en gene
 He trabajado en varios proyectos del área del desarrollo móvil, entre ellos me adjudique hace un poco más de un año un fondo concursable Corfo de 25 millones para la implementación de un proyecto de desarrollo, el cual sacamos adelante con mi equipo. He realizado algunos trabajos menores de desarrollo web, con Laravel y Vue, mi objetivo es interiorizarme en el mundo del desarrollo web fullstack.
 - Programo en Java, C#, Typescript. Javascript y estoy comenzando con Python, Actualmente estoy en proceso de certificación de AWS Solution Architect, ya que el año pasado completé y aprobé un Bootcamp de Arquitectura Cloud.
 ## ¿Cómo y a través de qué medios te pueden contactar?
-Por mi cuenta de correo electrónico: riverosvictordev@gmail.com.
